@@ -76,7 +76,7 @@ JSON.stringify((function extractRecipeData() {
         if (usableRecipe) {
             let orangeLevel = getIntFromQuerySelector(recipe, 'td div.small span.r1');
             if (!orangeLevel) {
-                orangeLevel = usableRecipe;
+                orangeLevel = usableRecipe > 50 ? usableRecipe : 1;
             }
             const yellowLevel = getIntFromQuerySelector(recipe, 'td div.small span.r2');
             const greenLevel = getIntFromQuerySelector(recipe, 'td div.small span.r3');
