@@ -1,11 +1,13 @@
-import { JCDataProvider } from "../connectors/jcDataProvider";
+import { craftingRecipes } from "../connectors/jcDataProvider.js";
 
 const dataSets = {
-    jewelCrafting: JCDataProvider.craftingRecipes,
+    jewelCrafting: craftingRecipes,
 };
 
 export class DataProvider {
     data = [];
+
+    static TYPE_JEWELCRAFTING = 'jewelCrafting';
 
     constructor() {
         for (const dataType in dataSets) {

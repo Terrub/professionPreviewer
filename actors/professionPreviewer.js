@@ -1,3 +1,5 @@
+import { DataProvider } from "./dataProvider.js";
+
 export class ProfessionPreviewer {
     constructor(dataProvider) {
         this.dataProvider = dataProvider;
@@ -5,7 +7,7 @@ export class ProfessionPreviewer {
 
     static filterRecipesByLevel(pLevel, pCraftingRecipes) {
         const craftingRecipes = pCraftingRecipes.filter((recipe) => {
-            return (pLevel >= recipe.orangeLevel);
+            return (pLevel >= recipe.orangeLevel && pLevel < recipe.grayLevel);
         })
 
         return craftingRecipes;
@@ -19,11 +21,22 @@ export class ProfessionPreviewer {
         return craftingRecipes;
     }
 
-    static getChanceOfSkillUp(currentLevel, recipe) {        
+    static sortBySkillChance(level, recipes) {
+        recipes.sort((first, second) => {
+            const chanceA = ProfessionPreviewer.getChanceOfSkillUp(level, first);
+            const chanceB = ProfessionPreviewer.getChanceOfSkillUp(level, second);
+
+            return chanceB - chanceA;
+        });
+
+        return recipes;
+    }
+
+    static getChanceOfSkillUp(currentLevel, recipe) {
         if (currentLevel < recipe.orangeLevel) {
             return 0;
-        }        
-        
+        }
+
         const yellow = recipe.yellowLevel;
         if (currentLevel > yellow) {
             const gray = recipe.grayLevel;
@@ -34,16 +47,10 @@ export class ProfessionPreviewer {
     }
 
     getAvailableOptions(pLevel) {
-        const craftingRecipes = this.dataProvider.getData();
-        const availableOptions = ProfessionPreviewer.filterByLevel(
-            pLevel,
-            craftingRecipes
-        );
+        const craftingRecipes = this.dataProvider.getRecipes(DataProvider.TYPE_JEWELCRAFTING);
+        const availableOptions = ProfessionPreviewer.filterRecipesByLevel(pLevel, craftingRecipes);
 
-        ProfessionPreviewer.sortByDifficultyLevel(
-            'yellowLevel',
-            availableOptions
-        );
+        ProfessionPreviewer.sortBySkillChance(pLevel, availableOptions);
 
         return availableOptions;
     }
