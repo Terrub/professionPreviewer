@@ -14,9 +14,13 @@ const profPreview = new ProfessionPreviewer(jcdp);
 // }
 
 document.getElementById('level').addEventListener('change', function() {
+    buildTable(this.value);
+});
+
+const buildTable = function(level) {
     document.getElementById('recipes').innerHTML = '';
 
-    for (const recipe of profPreview.getAvailableOptions(this.value)) {
+    for (const recipe of profPreview.getAvailableOptions(level)) {
         let row = document.createElement('tr');
 
         let nameColumn = document.createElement('td');
@@ -30,7 +34,7 @@ document.getElementById('level').addEventListener('change', function() {
         row.append(nameColumn);
 
         let skillColumn = document.createElement('td');
-        skillColumn.textContent = recipe.orangeLevel + ' / ' + recipe.yellowLevel + ' / ' + recipe.greenLevel + ' / ' + recipe.grayLevel;
+        skillColumn.innerHTML = '<span class="r1">' + recipe.orangeLevel + '</span> / <span class="r2">' + recipe.yellowLevel + '</span> / <span class="r3">' + recipe.greenLevel + '</span> / <span class="r4">' + recipe.grayLevel + '</span>';
         row.append(skillColumn);
 
         let materialColumn = document.createElement('td');
@@ -46,7 +50,9 @@ document.getElementById('level').addEventListener('change', function() {
 
         document.getElementById('recipes').append(row);
     }
-});
+}
+
+buildTable(1);
 
 document.getElementById('levelForm').addEventListener('submit', function(event) {
    event.preventDefault();
