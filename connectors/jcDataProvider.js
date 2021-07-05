@@ -30,15 +30,4 @@ function parseAllDBStrings() {
     return parsedDBStrings;
 }
 
-export class JCDataProvider {
-    craftingRecipes = [];
-
-    constructor() {
-        this.craftingRecipes = parseAllDBStrings();
-
-    }
-
-    getCraftingRecipes() {
-        return this.craftingRecipes
-    }
-}
+export const craftingRecipes = parseAllDBStrings();

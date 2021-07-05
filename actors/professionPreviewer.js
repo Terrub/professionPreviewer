@@ -3,15 +3,15 @@ export class ProfessionPreviewer {
         this.dataProvider = dataProvider;
     }
 
-    static filterByLevel(pLevel, pCraftingRecipes) {
+    static filterRecipesByLevel(pLevel, pCraftingRecipes) {
         const craftingRecipes = pCraftingRecipes.filter((recipe) => {
-            return (recipe.yellowLevel > pLevel && pLevel >= recipe.orangeLevel);
+            return (pLevel >= recipe.orangeLevel);
         })
 
         return craftingRecipes;
     }
 
-    static sortByDifficultyLevel(difficulty, craftingRecipes) {
+    static sortRecipesByDifficultyLevel(difficulty, craftingRecipes) {
         craftingRecipes.sort((first, second) => {
             return first[difficulty] - second[difficulty];
         });
@@ -34,7 +34,7 @@ export class ProfessionPreviewer {
     }
 
     getAvailableOptions(pLevel) {
-        const craftingRecipes = this.dataProvider.getCraftingRecipes();
+        const craftingRecipes = this.dataProvider.getData();
         const availableOptions = ProfessionPreviewer.filterByLevel(
             pLevel,
             craftingRecipes
