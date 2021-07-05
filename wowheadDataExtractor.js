@@ -70,12 +70,13 @@ JSON.stringify((function extractRecipeData() {
         const itemLink = recipe.querySelectorAll('td div a')[0].getAttribute('href');
         const [itemId, id] = getItemIdAndIdFromLink(itemLink);
         const name = recipe.querySelectorAll('td div a')[1].textContent;
+        const quality = recipe.querySelectorAll('td div a')[1].classList[1];
         const usableRecipe = getIntFromQuerySelector(recipe, 'td div.small span');
         
         if (usableRecipe) {
             let orangeLevel = getIntFromQuerySelector(recipe, 'td div.small span.r1');
             if (!orangeLevel) {
-                orangeLevel = 1;
+                orangeLevel = usableRecipe;
             }
             const yellowLevel = getIntFromQuerySelector(recipe, 'td div.small span.r2');
             const greenLevel = getIntFromQuerySelector(recipe, 'td div.small span.r3');
@@ -94,6 +95,7 @@ JSON.stringify((function extractRecipeData() {
                     greenLevel: greenLevel,
                     grayLevel: grayLevel,
                     reagents: reagents,
+                    quality: quality,
                 }
             );
         }
