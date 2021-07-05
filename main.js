@@ -39,9 +39,17 @@ const buildTable = function(level) {
 
         let materialColumn = document.createElement('td');
         let list = document.createElement('ul');
+        list.setAttribute('class', 'list-group list-group-horizontal border-0');
         for (const reagent of recipe.reagents) {
             let reagentListItem = document.createElement('li');
-            reagentListItem.textContent = reagent.id;
+            reagentListItem.setAttribute('class', 'list-group-item border-0');
+            let reagentLink = document.createElement('a');
+            reagentLink.setAttribute('href', 'https://tbc.wowhead.com/item=' +  reagent.itemId);
+            reagentLink.setAttribute('target', '_blank');
+            reagentLink.setAttribute('data-wh-rename-link', 'false');
+            reagentListItem.append(reagentLink);
+            reagentListItem.append(' x' + reagent.quantity);
+
             list.append(reagentListItem);
         }
         materialColumn.append(list);
@@ -49,6 +57,8 @@ const buildTable = function(level) {
 
 
         document.getElementById('recipes').append(row);
+
+        window.$WowheadPower.refreshLinks();
     }
 }
 
