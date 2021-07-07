@@ -7,7 +7,7 @@ export class ProfessionPreviewer {
 
     static filterRecipesByLevel(pLevel, pCraftingRecipes) {
         const craftingRecipes = pCraftingRecipes.filter((recipe) => {
-            return (pLevel >= recipe.orangeLevel && pLevel < recipe.grayLevel);
+            return (pLevel >= recipe.orangeLevel);
         })
 
         return craftingRecipes;
