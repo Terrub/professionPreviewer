@@ -13,18 +13,20 @@ export class DataProvider {
     constructor() {
         for (const dataType in dataSets) {
             for (const item of dataSets[dataType]) {
-                if (!Array.isArray(item.types)) {
-                    item.types = [];
-                }
-                item.types.push(dataType);
-                this.data.push(DataProvider.createItem(item));
-
-                for (const reagent of item.reagents) {
-                    if (!Array.isArray(reagent.types)) {
-                        reagent.types = [];
+                if (item.yellowLevel) {
+                    if (!Array.isArray(item.types)) {
+                        item.types = [];
                     }
-                    reagent.types.push(DataProvider.TYPE_REAGENT);
-                    this.data.push(DataProvider.createItem(reagent))
+                    item.types.push(dataType);
+                    this.data.push(DataProvider.createItem(item));
+
+                    for (const reagent of item.reagents) {
+                        if (!Array.isArray(reagent.types)) {
+                            reagent.types = [];
+                        }
+                        reagent.types.push(DataProvider.TYPE_REAGENT);
+                        this.data.push(DataProvider.createItem(reagent))
+                    }
                 }
             }
         }
