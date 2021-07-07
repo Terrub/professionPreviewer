@@ -74,6 +74,32 @@ function getBGColorForSkill(level, recipe) {
     return bgColor;
 }
 
+function addItemToInventory(item, amount) {
+    const inventory = document.getElementById('inventory_items');
+    const currentStack = document.getElementById(`inventory_${item.itemId}`);
+    if (currentStack) {
+        const oldAmount = parseInt(currentStack.querySelector('span[name="amount"]').textContent, 10);
+        const newAmount = oldAmount + amount;
+        currentStack.querySelector('span[name="amount"]').textContent = newAmount;
+    } else {
+        const itemRow = document.createElement('tr');
+        itemRow.setAttribute('id', `inventory_${item.itemId}`);
+
+        const itemAmountColumn = document.createElement('td');
+        const itemAmount = document.createElement('span');
+        itemAmount.setAttribute('name', 'amount')
+        itemAmount.textContent = amount;
+        itemAmountColumn.append(itemAmount)
+        itemRow.append(itemAmountColumn);
+
+        const itemNameColumn = document.createElement('td');
+        itemNameColumn.append(createItemLink(item, true));
+        itemRow.append(itemNameColumn);
+
+        inventory.append(itemRow);
+    }
+}
+
 function buildTable(level) {
     const recipeTable = document.getElementById('recipes');
     // reset current table
@@ -99,13 +125,33 @@ function buildTable(level) {
             materialColumn.append(reagentLink);
         }
 
+        const craftColumn = document.createElement('td');
+        const craftButton = document.createElement('button');
+        craftButton.textContent = 'Craft';
+        craftButton.onclick = () => {
+            for (const item of recipe.reagents) {
+                addItemToInventory(item, item.quantity);
+            }
+
+            const levelElement = document.getElementById('level');
+            const currentLevel = parseInt(levelElement.value, 10);
+            const skillUpChance = ProfessionPreviewer.getChanceOfSkillUp(currentLevel, recipe);
+            if ((Math.random() + skillUpChance | 0) === 1) {
+                levelElement.value = currentLevel + 1;
+                levelElement.dispatchEvent(new Event('change'));
+            }
+
+            window.$WowheadPower.refreshLinks();
+        };
+        craftColumn.append(craftButton);
+
         const row = document.createElement('tr');
         row.append(
             nameColumn,
             skillUpChanceColumn,
             skillColumn,
             materialColumn,
-            // craftColumn,
+            craftColumn,
         );
 
         recipeTable.append(row);
@@ -114,12 +160,23 @@ function buildTable(level) {
     window.$WowheadPower.refreshLinks();
 }
 
-document.getElementById('level').addEventListener('change', function () {
-    buildTable(this.value);
+document.getElementById('level').addEventListener('change', (event) => {
+    buildTable(event.target.value);
+});
+
+document.getElementById('toggle_inventory').addEventListener('click', () => {
+    const inventory = document.getElementById('inventory');
+    if (inventory.classList.contains('d-none')) {
+        inventory.classList.add('d-block');
+        inventory.classList.remove('d-none');
+    } else if (inventory.classList.contains('d-block')) {
+        inventory.classList.add('d-none');
+        inventory.classList.remove('d-block');
+    }
+});
+
+document.getElementById('levelForm').addEventListener('submit', (event) => {
+    event.preventDefault();
 });
 
 buildTable(1);
-
-document.getElementById('levelForm').addEventListener('submit', function (event) {
-    event.preventDefault();
-});
