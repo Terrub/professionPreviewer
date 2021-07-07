@@ -110,9 +110,10 @@ function buildTable(level) {
         nameColumn.append(createItemLink(recipe));
 
         const skillUpChanceColumn = document.createElement('td');
-        const chanceForSkillUp = (ProfessionPreviewer.getChanceOfSkillUp(level, recipe) * 100 | 0);
+        const chanceForSkillUp = ProfessionPreviewer.getChanceOfSkillUp(level, recipe);
+        const skillUpPercentage = chanceForSkillUp >= 0 ? (chanceForSkillUp * 100 | 0) : 0;
         skillUpChanceColumn.style.backgroundColor = getBGColorForSkill(level, recipe);
-        skillUpChanceColumn.append(`${chanceForSkillUp}%`);
+        skillUpChanceColumn.append(`${skillUpPercentage}%`);
         skillUpChanceColumn.style.textAlign = 'center';
 
         const skillColumn = document.createElement('td');
