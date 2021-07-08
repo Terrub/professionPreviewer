@@ -1,13 +1,16 @@
 import { craftingRecipes } from "../connectors/jcDataProvider.js";
+import { craftingRecipes as tailoringRecipes } from "../connectors/tailoringDataProvider.js";
 
 const dataSets = {
     jewelCrafting: craftingRecipes,
+    tailoring: tailoringRecipes,
 };
 
 export class DataProvider {
     data = [];
 
     static TYPE_JEWELCRAFTING = 'jewelCrafting';
+    static TYPE_TAILORING = 'tailoring';
     static TYPE_REAGENT = 'reagent';
 
     constructor() {
