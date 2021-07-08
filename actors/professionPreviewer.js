@@ -1,8 +1,12 @@
 import { DataProvider } from "./dataProvider.js";
 
 export class ProfessionPreviewer {
-    constructor(dataProvider) {
-        this.dataProvider = dataProvider;
+    dataProvider = null;
+    profession = null;
+
+    constructor(profession) {
+        this.dataProvider = new DataProvider();
+        this.profession = profession;
     }
 
     static filterRecipesByLevel(pLevel, pCraftingRecipes) {
@@ -47,7 +51,7 @@ export class ProfessionPreviewer {
     }
 
     getAvailableOptions(pLevel) {
-        const craftingRecipes = this.dataProvider.getRecipes(DataProvider.TYPE_JEWELCRAFTING);
+        const craftingRecipes = this.dataProvider.getRecipes(this.profession);
         const availableOptions = ProfessionPreviewer.filterRecipesByLevel(pLevel, craftingRecipes);
 
         ProfessionPreviewer.sortBySkillChance(pLevel, availableOptions);
