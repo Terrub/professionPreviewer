@@ -164,4 +164,14 @@ export class Utils {
     // For now just report the error normally;
     Utils.reportError(error);
   }
+
+  static parseDbStrings(allDBStrings) {
+    let parsedDBStrings = [];
+
+    for (const dbString of allDBStrings) {
+      parsedDBStrings = parsedDBStrings.concat(JSON.parse(dbString));
+    }
+
+    return parsedDBStrings;
+  }
 }
