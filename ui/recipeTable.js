@@ -3,8 +3,8 @@ import { ProfessionPreviewer } from "../actors/professionPreviewer.js";
 export class RecipeTable {
     profPreview = null;
 
-    constructor(profession) {
-        this.profPreview = new ProfessionPreviewer(profession);
+    constructor(profPreview) {
+        this.profPreview = profPreview;
     }
 
     buildTable(level) {
@@ -38,7 +38,7 @@ export class RecipeTable {
             craftButton.textContent = 'Craft';
             craftButton.onclick = () => {
                 for (const item of recipe.reagents) {
-                    this.addItemToInventory(item, item.quantity);
+                    addItemToInventory(item, item.quantity);
                 }
 
                 const levelElement = document.getElementById('level');
@@ -161,9 +161,5 @@ export class RecipeTable {
         skillLevel.textContent = level;
 
         return skillLevel;
-    }
-
-    setProfession(profession) {
-        this.profPreview = new ProfessionPreviewer(profession);
     }
 }

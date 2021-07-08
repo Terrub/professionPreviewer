@@ -1,11 +1,10 @@
-import { DataProvider } from "./dataProvider.js";
-
 export class ProfessionPreviewer {
     dataProvider = null;
+
     profession = null;
 
-    constructor(profession) {
-        this.dataProvider = new DataProvider();
+    constructor(dataProvider, profession) {
+        this.dataProvider = dataProvider;
         this.profession = profession;
     }
 
@@ -57,5 +56,9 @@ export class ProfessionPreviewer {
         ProfessionPreviewer.sortBySkillChance(pLevel, availableOptions);
 
         return availableOptions;
+    }
+
+    setProfession(profession) {
+        this.profession = profession;
     }
 }

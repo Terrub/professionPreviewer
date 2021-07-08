@@ -1,8 +1,11 @@
 import { DataProvider } from "./actors/dataProvider.js";
 import { RecipeTable } from "./ui/recipeTable.js";
 import { ProfessionSelect } from "./ui/professionSelect.js";
+import { ProfessionPreviewer } from "./actors/professionPreviewer.js";
 
-const recipes = new RecipeTable(DataProvider.TYPE_JEWELCRAFTING);
+const dataProvider = new DataProvider();
+const profPreview = new ProfessionPreviewer(dataProvider, DataProvider.TYPE_JEWELCRAFTING);
+const recipes = new RecipeTable(profPreview);
 const professionSelector = new ProfessionSelect([
     {
         id: DataProvider.TYPE_JEWELCRAFTING,
@@ -37,8 +40,12 @@ document.getElementById('levelForm').addEventListener('submit', (event) => {
     event.preventDefault();
 });
 
+document.getElementById('professionForm').addEventListener('submit', (event) => {
+    event.preventDefault();
+});
+
 professionSelector.getElement().addEventListener('change', () => {
-    recipes.setProfession(professionSelector.getSelected());
+    profPreview.setProfession(professionSelector.getSelected());
     document.getElementById('level').value = 1;
     recipes.buildTable(1);
 });

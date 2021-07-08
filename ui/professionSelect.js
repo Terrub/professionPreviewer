@@ -5,10 +5,6 @@ export class ProfessionSelect {
     constructor(professions, element) {
         this.availableProfessions = professions;
         this.selectElement = element;
-
-        this.selectElement.addEventListener('submit', function(event) {
-            event.preventDefault();
-        });
     }
 
     buildSelect() {

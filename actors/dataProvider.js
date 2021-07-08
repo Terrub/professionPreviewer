@@ -65,6 +65,7 @@ export class DataProvider {
     }
 
     getRecipes(type) {
+
         return this.data.filter((item) => {
             return item.types.indexOf(type) !== -1;
         });
