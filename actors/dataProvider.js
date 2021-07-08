@@ -1,13 +1,25 @@
-import { craftingRecipes } from "../connectors/jcDataProvider.js";
+import { craftingRecipes as jewelCraftingRecipes } from "../connectors/jcDataProvider.js";
+import { craftingRecipes as tailoringRecipes } from "../connectors/tailoringDataProvider.js";
+import { craftingRecipes as blackSmithingRecipes } from "../connectors/bsDataProvider.js";
+import { craftingRecipes as leatherWorkingRecipes } from "../connectors/lwDataProvider.js";
 
 const dataSets = {
-    jewelCrafting: craftingRecipes,
+    jewelCrafting: jewelCraftingRecipes,
+    tailoring: tailoringRecipes,
+    blackSmithing: blackSmithingRecipes,
+    leatherWorking: leatherWorkingRecipes,
 };
 
 export class DataProvider {
     data = [];
 
     static TYPE_JEWELCRAFTING = 'jewelCrafting';
+    static TYPE_TAILORING = 'tailoring';
+    static TYPE_BLACKSMITHING = 'blackSmithing';
+    static TYPE_LEATHERWORKING = 'leatherWorking';
+    static TYPE_ALCHEMY = 'alchemy';
+    static TYPE_ENCHANTING = 'enchanting';
+    static TYPE_COOKING = 'cooking';
     static TYPE_REAGENT = 'reagent';
 
     constructor() {
@@ -53,6 +65,7 @@ export class DataProvider {
     }
 
     getRecipes(type) {
+
         return this.data.filter((item) => {
             return item.types.indexOf(type) !== -1;
         });
