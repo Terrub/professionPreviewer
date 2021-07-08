@@ -16,6 +16,11 @@ const professionSelector = new ProfessionSelect([
         id: DataProvider.TYPE_BLACKSMITHING,
         name: 'Blacksmithing',
     },
+
+    {
+        id: DataProvider.TYPE_LEATHERWORKING,
+        name: 'Leatherworking',
+    },
 ], document.getElementById('profession'));
 
 document.getElementById('level').addEventListener('change', (event) => {

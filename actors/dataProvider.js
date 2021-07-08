@@ -1,11 +1,13 @@
 import { craftingRecipes as jewelCraftingRecipes } from "../connectors/jcDataProvider.js";
 import { craftingRecipes as tailoringRecipes } from "../connectors/tailoringDataProvider.js";
 import { craftingRecipes as blackSmithingRecipes } from "../connectors/bsDataProvider.js";
+import { craftingRecipes as leatherWorkingRecipes } from "../connectors/lwDataProvider.js";
 
 const dataSets = {
     jewelCrafting: jewelCraftingRecipes,
     tailoring: tailoringRecipes,
     blackSmithing: blackSmithingRecipes,
+    leatherWorking: leatherWorkingRecipes,
 };
 
 export class DataProvider {
