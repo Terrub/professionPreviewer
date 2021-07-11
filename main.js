@@ -2,6 +2,7 @@ import { DataProvider } from "./actors/dataProvider.js";
 import { RecipeTable } from "./ui/recipeTable.js";
 import { ProfessionSelect } from "./ui/professionSelect.js";
 import { ProfessionPreviewer } from "./actors/professionPreviewer.js";
+import { Utils } from "./utils.js";
 
 const dataProvider = new DataProvider();
 const profPreview = new ProfessionPreviewer(dataProvider, DataProvider.TYPE_ALCHEMY);
@@ -32,5 +33,10 @@ professionSelector.getElement().addEventListener('change', () => {
     recipes.buildTable(1);
 });
 
-recipes.buildTable(1);
-professionSelector.buildSelect();
+Utils.domReady(() => {
+    professionSelector.buildSelect();
+    recipes.buildTable(1);
+
+    window.recipes = recipes;
+    window.professionSelector = professionSelector;
+});
