@@ -176,11 +176,12 @@ export class Utils {
   }
 
   static domReady(fn) {
-    // If we're early to the party
-    document.addEventListener("DOMContentLoaded", fn);
-    // If late; I mean on time.
     if (document.readyState === "interactive" || document.readyState === "complete" ) {
+      // If late; I mean on time.
       fn();
+    } else {
+      // If we're early to the party
+      document.addEventListener("DOMContentLoaded", fn);
     }
   }
 }
