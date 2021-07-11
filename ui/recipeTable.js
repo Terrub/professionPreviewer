@@ -38,12 +38,12 @@ export class RecipeTable {
             craftButton.textContent = 'Craft';
             craftButton.onclick = () => {
                 for (const item of recipe.reagents) {
-                    addItemToInventory(item, item.quantity);
+                    this.addItemToInventory(item, item.quantity);
                 }
 
                 const levelElement = document.getElementById('level');
                 const currentLevel = parseInt(levelElement.value, 10);
-                const skillUpChance = this.profPreview.getChanceOfSkillUp(currentLevel, recipe);
+                const skillUpChance = ProfessionPreviewer.getChanceOfSkillUp(currentLevel, recipe);
                 if ((Math.random() + skillUpChance | 0) === 1) {
                     levelElement.value = currentLevel + 1;
                     levelElement.dispatchEvent(new Event('change'));
