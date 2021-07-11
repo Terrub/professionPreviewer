@@ -36,7 +36,4 @@ professionSelector.getElement().addEventListener('change', () => {
 Utils.domReady(() => {
     professionSelector.buildSelect();
     recipes.buildTable(1);
-
-    window.recipes = recipes;
-    window.professionSelector = professionSelector;
 });
