@@ -2,12 +2,20 @@ import { craftingRecipes as jewelCraftingRecipes } from "../connectors/jcDataPro
 import { craftingRecipes as tailoringRecipes } from "../connectors/tailoringDataProvider.js";
 import { craftingRecipes as blackSmithingRecipes } from "../connectors/bsDataProvider.js";
 import { craftingRecipes as leatherWorkingRecipes } from "../connectors/lwDataProvider.js";
+import { craftingRecipes as alchemyRecipes } from "../connectors/alchemyDataProvider.js";
+import { craftingRecipes as enchantingRecipes } from "../connectors/enchantingDataProvider.js";
+import { craftingRecipes as engineeringRecipes } from "../connectors/engineeringDataProvider.js";
+import { craftingRecipes as cookingRecipes } from "../connectors/cookingDataProvider.js";
 
 const dataSets = {
+    alchemy: alchemyRecipes,
+    blackSmithing: blackSmithingRecipes,
+    cooking: cookingRecipes,
+    enchanting: enchantingRecipes,
+    engineering: engineeringRecipes,
+    leatherWorking: leatherWorkingRecipes,
     jewelCrafting: jewelCraftingRecipes,
     tailoring: tailoringRecipes,
-    blackSmithing: blackSmithingRecipes,
-    leatherWorking: leatherWorkingRecipes,
 };
 
 export class DataProvider {
@@ -20,6 +28,7 @@ export class DataProvider {
     static TYPE_ALCHEMY = 'alchemy';
     static TYPE_ENCHANTING = 'enchanting';
     static TYPE_COOKING = 'cooking';
+    static TYPE_ENGINEERING = 'engineering';
     static TYPE_REAGENT = 'reagent';
 
     constructor() {
@@ -42,6 +51,43 @@ export class DataProvider {
                 }
             }
         }
+    }
+
+    static professionList() {
+        return [
+            {
+                id: DataProvider.TYPE_ALCHEMY,
+                name: 'Alchemy',
+            },
+            {
+                id: DataProvider.TYPE_BLACKSMITHING,
+                name: 'Blacksmithing',
+            },
+            {
+                id: DataProvider.TYPE_COOKING,
+                name: 'Cooking',
+            },
+            {
+                id: DataProvider.TYPE_ENCHANTING,
+                name: 'Enchanting',
+            },
+            {
+                id: DataProvider.TYPE_ENGINEERING,
+                name: 'Engineering',
+            },
+            {
+                id: DataProvider.TYPE_LEATHERWORKING,
+                name: 'Leatherworking',
+            },
+            {
+                id: DataProvider.TYPE_JEWELCRAFTING,
+                name: 'Jewelcrafting',
+            },
+            {
+                id: DataProvider.TYPE_TAILORING,
+                name: 'Tailoring',
+            },
+        ];
     }
 
     static createItem(pItemInfo) {
