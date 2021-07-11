@@ -57,35 +57,35 @@ export class DataProvider {
         return [
             {
                 id: DataProvider.TYPE_ALCHEMY,
-                name: 'Alchemy',
+                name: 'Alchemy (' + DataProvider.getRecipeCount(DataProvider.TYPE_ALCHEMY) + ')',
             },
             {
                 id: DataProvider.TYPE_BLACKSMITHING,
-                name: 'Blacksmithing',
+                name: 'Blacksmithing (' + DataProvider.getRecipeCount(DataProvider.TYPE_BLACKSMITHING) + ')',
             },
             {
                 id: DataProvider.TYPE_COOKING,
-                name: 'Cooking',
+                name: 'Cooking (' + DataProvider.getRecipeCount(DataProvider.TYPE_COOKING) + ')',
             },
             {
                 id: DataProvider.TYPE_ENCHANTING,
-                name: 'Enchanting',
+                name: 'Enchanting (' + DataProvider.getRecipeCount(DataProvider.TYPE_ENCHANTING) + ')',
             },
             {
                 id: DataProvider.TYPE_ENGINEERING,
-                name: 'Engineering',
+                name: 'Engineering (' + DataProvider.getRecipeCount(DataProvider.TYPE_ENGINEERING) + ')',
             },
             {
                 id: DataProvider.TYPE_LEATHERWORKING,
-                name: 'Leatherworking',
+                name: 'Leatherworking (' + DataProvider.getRecipeCount(DataProvider.TYPE_LEATHERWORKING) + ')',
             },
             {
                 id: DataProvider.TYPE_JEWELCRAFTING,
-                name: 'Jewelcrafting',
+                name: 'Jewelcrafting (' + DataProvider.getRecipeCount(DataProvider.TYPE_JEWELCRAFTING) + ')',
             },
             {
                 id: DataProvider.TYPE_TAILORING,
-                name: 'Tailoring',
+                name: 'Tailoring (' + DataProvider.getRecipeCount(DataProvider.TYPE_TAILORING) + ')',
             },
         ];
     }
@@ -111,6 +111,10 @@ export class DataProvider {
             quality: pItemInfo.quality,
             types: pItemInfo.types,
         }
+    }
+
+    static getRecipeCount(type) {
+        return dataSets[type].length;
     }
 
     getRecipes(type) {
