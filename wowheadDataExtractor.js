@@ -27,7 +27,7 @@ JSON.stringify((function extractRecipeData() {
             const itemLink = element.querySelector('a').getAttribute('href');
             const [itemId, id] = getItemIdAndIdFromLink(itemLink);
             let quantity = getIntFromQuerySelector(element, 'span span');
-            
+
             if (!quantity) {
                 quantity = 1;
             }
@@ -68,11 +68,14 @@ JSON.stringify((function extractRecipeData() {
         recipeNumber += 1;
 
         const itemLink = recipe.querySelectorAll('td div a')[0].getAttribute('href');
+        const createsItem = itemLink.includes('item=');
         const [itemId, id] = getItemIdAndIdFromLink(itemLink);
+        const spellLink = recipe.querySelectorAll('td div a')[1].getAttribute('href');
+        const [spellId, spellName] = getItemIdAndIdFromLink(spellLink);
         const name = recipe.querySelectorAll('td div a')[1].textContent;
         const quality = recipe.querySelectorAll('td div a')[1].classList[1];
         const usableRecipe = getIntFromQuerySelector(recipe, 'td div.small span');
-        
+
         if (usableRecipe) {
             let orangeLevel = getIntFromQuerySelector(recipe, 'td div.small span.r1');
             if (!orangeLevel) {
@@ -89,6 +92,9 @@ JSON.stringify((function extractRecipeData() {
                 {
                     itemId: itemId,
                     id: id,
+                    spellId: spellId,
+                    spellName: spellName,
+                    createsItem: createsItem,
                     name: name,
                     orangeLevel: orangeLevel,
                     yellowLevel: yellowLevel,

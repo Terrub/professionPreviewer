@@ -99,6 +99,9 @@ export class DataProvider {
         return {
             itemId: pItemInfo.itemId,
             id: pItemInfo.id,
+            spellId: pItemInfo.spellId,
+            spellName: pItemInfo.spellName,
+            createsItem: pItemInfo.createsItem,
             name: itemName,
             orangeLevel: pItemInfo.orangeLevel,
             yellowLevel: pItemInfo.yellowLevel,
