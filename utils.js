@@ -174,4 +174,14 @@ export class Utils {
 
     return parsedDBStrings;
   }
+
+  static domReady(fn) {
+    if (document.readyState === "interactive" || document.readyState === "complete" ) {
+      // If late; I mean on time.
+      fn();
+    } else {
+      // If we're early to the party
+      document.addEventListener("DOMContentLoaded", fn);
+    }
+  }
 }

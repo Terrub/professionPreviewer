@@ -2,12 +2,20 @@ import { craftingRecipes as jewelCraftingRecipes } from "../connectors/jcDataPro
 import { craftingRecipes as tailoringRecipes } from "../connectors/tailoringDataProvider.js";
 import { craftingRecipes as blackSmithingRecipes } from "../connectors/bsDataProvider.js";
 import { craftingRecipes as leatherWorkingRecipes } from "../connectors/lwDataProvider.js";
+import { craftingRecipes as alchemyRecipes } from "../connectors/alchemyDataProvider.js";
+import { craftingRecipes as enchantingRecipes } from "../connectors/enchantingDataProvider.js";
+import { craftingRecipes as engineeringRecipes } from "../connectors/engineeringDataProvider.js";
+import { craftingRecipes as cookingRecipes } from "../connectors/cookingDataProvider.js";
 
 const dataSets = {
+    alchemy: alchemyRecipes,
+    blackSmithing: blackSmithingRecipes,
+    cooking: cookingRecipes,
+    enchanting: enchantingRecipes,
+    engineering: engineeringRecipes,
+    leatherWorking: leatherWorkingRecipes,
     jewelCrafting: jewelCraftingRecipes,
     tailoring: tailoringRecipes,
-    blackSmithing: blackSmithingRecipes,
-    leatherWorking: leatherWorkingRecipes,
 };
 
 export class DataProvider {
@@ -20,6 +28,7 @@ export class DataProvider {
     static TYPE_ALCHEMY = 'alchemy';
     static TYPE_ENCHANTING = 'enchanting';
     static TYPE_COOKING = 'cooking';
+    static TYPE_ENGINEERING = 'engineering';
     static TYPE_REAGENT = 'reagent';
 
     constructor() {
@@ -44,6 +53,43 @@ export class DataProvider {
         }
     }
 
+    static professionList() {
+        return [
+            {
+                id: DataProvider.TYPE_ALCHEMY,
+                name: 'Alchemy (' + DataProvider.getRecipeCount(DataProvider.TYPE_ALCHEMY) + ')',
+            },
+            {
+                id: DataProvider.TYPE_BLACKSMITHING,
+                name: 'Blacksmithing (' + DataProvider.getRecipeCount(DataProvider.TYPE_BLACKSMITHING) + ')',
+            },
+            {
+                id: DataProvider.TYPE_COOKING,
+                name: 'Cooking (' + DataProvider.getRecipeCount(DataProvider.TYPE_COOKING) + ')',
+            },
+            {
+                id: DataProvider.TYPE_ENCHANTING,
+                name: 'Enchanting (' + DataProvider.getRecipeCount(DataProvider.TYPE_ENCHANTING) + ')',
+            },
+            {
+                id: DataProvider.TYPE_ENGINEERING,
+                name: 'Engineering (' + DataProvider.getRecipeCount(DataProvider.TYPE_ENGINEERING) + ')',
+            },
+            {
+                id: DataProvider.TYPE_LEATHERWORKING,
+                name: 'Leatherworking (' + DataProvider.getRecipeCount(DataProvider.TYPE_LEATHERWORKING) + ')',
+            },
+            {
+                id: DataProvider.TYPE_JEWELCRAFTING,
+                name: 'Jewelcrafting (' + DataProvider.getRecipeCount(DataProvider.TYPE_JEWELCRAFTING) + ')',
+            },
+            {
+                id: DataProvider.TYPE_TAILORING,
+                name: 'Tailoring (' + DataProvider.getRecipeCount(DataProvider.TYPE_TAILORING) + ')',
+            },
+        ];
+    }
+
     static createItem(pItemInfo) {
         let itemName = pItemInfo.name
         if (!itemName) {
@@ -53,6 +99,9 @@ export class DataProvider {
         return {
             itemId: pItemInfo.itemId,
             id: pItemInfo.id,
+            spellId: pItemInfo.spellId,
+            spellName: pItemInfo.spellName,
+            createsItem: pItemInfo.createsItem,
             name: itemName,
             orangeLevel: pItemInfo.orangeLevel,
             yellowLevel: pItemInfo.yellowLevel,
@@ -62,6 +111,10 @@ export class DataProvider {
             quality: pItemInfo.quality,
             types: pItemInfo.types,
         }
+    }
+
+    static getRecipeCount(type) {
+        return dataSets[type].length;
     }
 
     getRecipes(type) {

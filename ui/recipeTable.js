@@ -14,7 +14,11 @@ export class RecipeTable {
 
         for (const recipe of this.profPreview.getAvailableOptions(level)) {
             const nameColumn = document.createElement('td');
-            nameColumn.append(this.createItemLink(recipe));
+            if (recipe.createsItem) {
+                nameColumn.append(this.createItemLink(recipe));
+            } else {
+                nameColumn.append(this.createSpellLink(recipe));
+            }
 
             const skillUpChanceColumn = document.createElement('td');
             const chanceForSkillUp = ProfessionPreviewer.getChanceOfSkillUp(level, recipe);
@@ -121,6 +125,18 @@ export class RecipeTable {
             div.append(numItems, link);
             return div;
         }
+
+        return link;
+    }
+
+    createSpellLink(wowSpell) {
+        const link = document.createElement('a');
+
+        link.classList.add('q-1');
+        link.textContent = wowSpell.name;
+        link.classList.add('text-decoration-none');
+        link.setAttribute('href', `https://tbc.wowhead.com/spell=${wowSpell.spellId}`);
+        link.setAttribute('target', '_blank');
 
         return link;
     }
